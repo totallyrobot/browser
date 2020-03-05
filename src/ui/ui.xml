@@ -3,6 +3,16 @@
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <requires lib="webkit2gtk" version="2.12"/>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">reload</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">dialog-ok</property>
+  </object>
   <object class="GtkWindow" id="mainWindow">
     <property name="can_focus">False</property>
     <child type="titlebar">
@@ -10,44 +20,30 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="show_close_button">True</property>
-        <child>
+        <child type="title">
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <placeholder/>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">image1</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="GtkEntry" id="urlBarEntry">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkEntry" id="urlBarEntry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="caps_lock_warning">False</property>
-                    <property name="placeholder_text" translatable="yes">Enter URL here</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton">
-                    <property name="label" translatable="yes">Go</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <signal name="clicked" handler="openUrlFromUrlBarEntry" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
+                <property name="can_focus">True</property>
+                <property name="caps_lock_warning">False</property>
+                <property name="placeholder_text" translatable="yes">Enter URL here</property>
+                <signal name="activate" handler="openUrl" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -55,18 +51,32 @@
                 <property name="position">1</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">image2</property>
+                <signal name="clicked" handler="openUrl" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </object>
         </child>
       </object>
     </child>
     <child>
-      <object class="WebKitWebView" id="viewPort">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
+      <placeholder/>
     </child>
+  </object>
+  <object class="WebKitSettings" id="viewPortSettings">
+    <property name="enable_java">False</property>
+    <property name="user_agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
+    <property name="enable_accelerated_2d_canvas">True</property>
+    <property name="enable_media_stream">True</property>
   </object>
 </interface>

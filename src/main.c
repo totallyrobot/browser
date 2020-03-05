@@ -2,17 +2,19 @@
 #include <gtk/gtk.h>
 #include <webkit2/webkit2.h>
 #include <glib.h>
+#include "urlbar.h"
 
 GtkBuilder *builder;
 GtkWidget *windowMain;
 GtkWidget *urlBarEntry;
 WebKitWebView *viewport;
 
-void openUrlFromUrlBarEntry() {
-    const gchar *url = gtk_entry_get_text(GTK_ENTRY(urlBarEntry));
-    webkit_web_view_load_uri(viewport, url);
-    
+void openUrl() {
+    openFromUrlBar(urlBarEntry, viewport);
+}
 
+void refreshUrlBar() {
+    refreshUrlBarEntryContent(urlBarEntry, viewport);
 }
 
 int main(int argc, char *argv[]) {
