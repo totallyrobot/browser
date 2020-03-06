@@ -3,3 +3,6 @@ browser
 src/ui/#ui.xml#
 src/ui/ui.xml~
 urlbar.o
+tabs.o
+src/init.c
+src/html/
