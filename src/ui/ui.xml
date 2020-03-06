@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <signal name="activate" handler="openAboutDialog" swapped="no"/>
+        <signal name="clicked" handler="openAboutDialog" swapped="no"/>
       </object>
     </child>
   </object>
@@ -258,6 +258,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="image">image2</property>
+            <signal name="clicked" handler="openAboutDialog" swapped="no"/>
           </object>
           <packing>
             <property name="tab_fill">False</property>

@@ -36,5 +36,4 @@ TRBrowserTab TRBrowser_TRBrowserTab_new() {
 	return_value.viewport = WEBKIT_WEB_VIEW(webkit_web_view_new_with_context(return_value.tabContext));
 	return_value.tabLabel = GTK_WIDGET(gtk_label_new("test"));
 	return return_value;
-
 }

@@ -6,6 +6,10 @@ void openFromUrlBar(GtkWidget *urlBar, WebKitWebView *webview) {
     webkit_web_view_load_uri(webview, input);
 }
 
-void refreshUrlBarEntryContent(GtkWidget *urlBar, WebKitWebView *webview) {
-        gtk_entry_set_text(GTK_ENTRY(urlBar), webkit_web_view_get_uri(webview));
+// NOTE: this function if called if:
+// the tab in the GtkNotebook changes
+// or
+// the tab loads a new page
+void refreshUrlBarContent(GtkNotebook *tabBar) {
+;
 }
