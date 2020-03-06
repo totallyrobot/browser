@@ -5,7 +5,6 @@
 char *getBrowserDir(char *destPointer) {
     strcat(destPointer, getenv("HOME"));
     strcat(destPointer, "/.browser/");
-	printf(destPointer, "\n");
 	return destPointer;
 }
 
@@ -14,7 +13,6 @@ char *getDataBaseDir(char *destPointer) {
     getBrowserDir(browserDir);
     strcat(destPointer, browserDir);
     strcat(destPointer, "data/");
-	printf(destPointer, "\n");
     return destPointer;
 }
 
@@ -23,6 +21,5 @@ char *getCacheBaseDir(char *destPointer) {
     getBrowserDir(browserDir);
     strcat(destPointer, browserDir);
     strcat(destPointer, "cache/");
-	printf(destPointer, "\n");
     return destPointer;
 }

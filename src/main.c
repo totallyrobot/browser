@@ -14,6 +14,7 @@ GtkWidget *aboutDialog;
 GtkWidget *browserMenu;
 GtkWidget *tabBar;
 TRBrowserTab tab1;
+TRBrowserTab tab2;
 
 void goForward() {
     webkit_web_view_go_forward(tab1.viewport);
@@ -37,9 +38,11 @@ void openBrowserMenu() {
 // FIXME: dialog box doesnt open
 void openAboutDialog() {
     gtk_dialog_run(GTK_DIALOG(aboutDialog));
-    printf("gi");
 }
 
+void exitApp() {
+    exit(0);
+}
 
 int main(int argc, char *argv[]) {
 	gtk_init(&argc, &argv);
@@ -52,12 +55,15 @@ int main(int argc, char *argv[]) {
     tabBar = GTK_WIDGET(gtk_builder_get_object(builder, "tabBar"));
     // viewport = WEBKIT_WEB_VIEW(webkit_web_view_new());
     tab1 = TRBrowser_TRBrowserTab_new();
+    tab2 = TRBrowser_TRBrowserTab_new();
     urlBarEntry = GTK_WIDGET(gtk_builder_get_object(builder, "urlBarEntry"));
 	gtk_builder_connect_signals(builder, NULL);
     g_object_unref(builder);
     // gtk_container_add(GTK_CONTAINER(mainWindow), GTK_WIDGET(viewport));
     gtk_notebook_append_page(GTK_NOTEBOOK(tabBar), GTK_WIDGET(tab1.viewport), NULL);
-    webkit_web_view_load_uri(tab1.viewport, "https://github.com/totallyrobot/browser");
+    gtk_notebook_append_page(GTK_NOTEBOOK(tabBar), GTK_WIDGET(tab2.viewport), NULL);
+    webkit_web_view_load_uri(tab2.viewport, "https://github.com/totallyrobot/browser");
+    webkit_web_view_load_uri(tab1.viewport, "https://github.com/totallyrobot");
     gtk_widget_show_all(mainWindow);
     gtk_main();
 	return 0;
