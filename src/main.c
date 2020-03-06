@@ -15,39 +15,6 @@ GtkWidget *browserMenu;
 GtkWidget *tabBar;
 TRBrowserTab tab1;
 
-char *getBrowserDir() {
-    char *dest_str = "";
-    strcat(dest_str, getenv("HOME"));
-    strcat(dest_str, "/.browser/");
-    return dest_str;
-}
-
-char *getDataBaseDir() {
-    char *browser_dir = getBrowserDir();
-    char *dest_str = "";
-    strcat(dest_str, browser_dir);
-    strcat(dest_str, "data/");
-    return dest_str;
-}
-
-char *getCacheBaseDir() {
-    char *browser_dir = getBrowserDir();
-    char *dest_str = "";
-    strcat(dest_str, browser_dir);
-    strcat(dest_str, "cache/");
-    return dest_str;
-}
-
-char *getCookieDir() {
-    char *browser_dir = getBrowserDir();
-    char *dest_str = "";
-    strcat(dest_str, browser_dir);
-    strcat(dest_str, "cookies/");
-    return dest_str;
-
-}
-
-
 void goForward() {
     webkit_web_view_go_forward(tab1.viewport);
 }
