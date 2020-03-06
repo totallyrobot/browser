@@ -10,6 +10,6 @@ void openFromUrlBar(GtkWidget *urlBar, WebKitWebView *webview) {
 // the tab in the GtkNotebook changes
 // or
 // the tab loads a new page
-void refreshUrlBarContent(GtkNotebook *tabBar) {
-;
-}
+//void refreshUrlBarContent(GtkNotebook *tabBar) {
+//;
+//}

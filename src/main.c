@@ -16,11 +16,10 @@ GtkWidget *tabBar;
 TRBrowserTab tab1;
 TRBrowserTab tab2;
 
-// FIXME: why the f*ck does the tab not open
-int createNewTab() {
+void createNewTab() {
     TRBrowserTab tab = TRBrowser_TRBrowserTab_new();
     gtk_notebook_append_page(GTK_NOTEBOOK(tabBar), GTK_WIDGET(tab.viewport), NULL);
-    return 1;
+    gtk_widget_show_all(mainWindow);
 }
 
 void goForward() {
@@ -35,9 +34,9 @@ void openUrl() {
     openFromUrlBar(urlBarEntry, tab1.viewport);
 }
 
-void refreshUrlBar() {
-    refreshUrlBarEntryContent(urlBarEntry, tab1.viewport);
-}
+//void refreshUrlBar() {
+//    refreshUrlBarEntryContent(urlBarEntry, tab1.viewport);
+//}
 
 void openBrowserMenu() {
     gtk_widget_show_all(browserMenu);
