@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 #include <webkit2/webkit2.h>
+#include "paths.h"
 
 // now comes the actual tab stuff
 typedef struct {
@@ -14,8 +15,8 @@ typedef struct {
 TRBrowserTab TRBrowser_TRBrowserTab_new() {
 	TRBrowserTab return_value;
 	return_value.tabWebsiteDataManager = webkit_website_data_manager_new(
-		"base-data-directory", "/home/maxi/.browser/data",
-		"base-cache-directory", "/home/maxi/.browser/cache",
+		"base-data-directory", getDataBaseDir(),
+		"base-cache-directory", getCacheBaseDir(),
 		NULL
 	);
 	return_value.tabContext = webkit_web_context_new_with_website_data_manager(return_value.tabWebsiteDataManager);
