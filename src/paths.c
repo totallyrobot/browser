@@ -1,25 +1,28 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-char *getBrowserDir() {
-    char *dest_str = "";
-    strcat(dest_str, getenv("HOME"));
-    strcat(dest_str, "/.browser/");
-    return dest_str;
+char *getBrowserDir(char *destPointer) {
+    strcat(destPointer, getenv("HOME"));
+    strcat(destPointer, "/.browser/");
+	printf(destPointer, "\n");
+	return destPointer;
 }
 
-char *getDataBaseDir() {
-    char *browser_dir = getBrowserDir();
-    char *dest_str = "";
-    strcat(dest_str, browser_dir);
-    strcat(dest_str, "data/");
-    return dest_str;
+char *getDataBaseDir(char *destPointer) {
+	char browserDir[200] = "";
+    getBrowserDir(browserDir);
+    strcat(destPointer, browserDir);
+    strcat(destPointer, "data/");
+	printf(destPointer, "\n");
+    return destPointer;
 }
 
-char *getCacheBaseDir() {
-    char *browser_dir = getBrowserDir();
-    char *dest_str = "";
-    strcat(dest_str, browser_dir);
-    strcat(dest_str, "cache/");
-    return dest_str;
+char *getCacheBaseDir(char *destPointer) {
+	char browserDir[200] = "";
+    getBrowserDir(browserDir);
+    strcat(destPointer, browserDir);
+    strcat(destPointer, "cache/");
+	printf(destPointer, "\n");
+    return destPointer;
 }

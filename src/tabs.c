@@ -14,9 +14,12 @@ typedef struct {
 
 TRBrowserTab TRBrowser_TRBrowserTab_new() {
 	TRBrowserTab return_value;
+	char destDataBaseDir[200] = "";
+	char destCacheBaseDir[200] = "";
+
 	return_value.tabWebsiteDataManager = webkit_website_data_manager_new(
-		"base-data-directory", getDataBaseDir(),
-		"base-cache-directory", getCacheBaseDir(),
+		"base-data-directory", getDataBaseDir(destDataBaseDir),
+		"base-cache-directory", getCacheBaseDir(destCacheBaseDir),
 		NULL
 	);
 	return_value.tabContext = webkit_web_context_new_with_website_data_manager(return_value.tabWebsiteDataManager);
