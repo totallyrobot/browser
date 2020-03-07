@@ -14,13 +14,12 @@ GtkWidget *urlBarEntry;
 GtkWidget *aboutDialog;
 GtkWidget *browserMenu;
 GtkWidget *tabBar;
-TRBrowserTab tab1;
-TRBrowserTab tab2;
 
 void createNewTab() {
     TRBrowserTab tab = TRBrowser_TRBrowserTab_new();
-    gtk_notebook_append_page(GTK_NOTEBOOK(tabBar), GTK_WIDGET(tab.viewport), NULL);
+    gtk_notebook_append_page(GTK_NOTEBOOK(tabBar), GTK_WIDGET(tab.viewport), tab.tabLabel.trBrowserTabLabelContainer);
     gtk_widget_show_all(mainWindow);
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(tabBar), -1);
 }
 
 void goForward() {
@@ -35,6 +34,17 @@ void refreshCurrentTabUrlBarSignalHandler(WebKitWebView *webview, WebKitLoadEven
     refreshCurrentTabUrlBar(loadEvent, GTK_NOTEBOOK(tabBar), urlBarEntry);
 }
 
+
+void refreshTabLabelEventSignalHandlerFavicon(WebKitWebView *webView, WebKitLoadEvent loadEvent) {
+    refreshTabLabelHandler(loadEvent, GTK_NOTEBOOK(tabBar), webView, TRUE);
+}
+
+void refreshTabLabelEventSignalHandler(WebKitWebView *webView, WebKitLoadEvent loadEvent) {
+    refreshTabLabelHandler(loadEvent, GTK_NOTEBOOK(tabBar), webView, FALSE);
+}
+void refreshTabLabelEventSignalHandlerNotify(WebKitWebView *webView) {
+    refreshTabLabelHandler(WEBKIT_LOAD_COMMITTED, GTK_NOTEBOOK(tabBar), webView, FALSE);
+}
 
 void refreshUrlBar(GtkNotebook *notebook, GtkWidget *page, guint tabIndex) {
     refreshUrlBarContent(tabIndex, GTK_NOTEBOOK(tabBar), urlBarEntry);
@@ -77,6 +87,7 @@ int main(int argc, char *argv[]) {
 	gtk_builder_connect_signals(builder, NULL);
     g_object_unref(builder);
     createNewTab();
+    gtk_notebook_remove_page(GTK_NOTEBOOK(tabBar), 0);
     gtk_widget_show_all(mainWindow);
     gtk_main();
 	return 0;
