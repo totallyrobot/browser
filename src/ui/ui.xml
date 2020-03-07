@@ -140,6 +140,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="image">image1</property>
+                <signal name="clicked" handler="refreshTab" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

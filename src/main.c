@@ -27,6 +27,10 @@ void goForward() {
     webkit_web_view_go_forward(getCurrentTab(GTK_NOTEBOOK(tabBar)).viewport);
 }
 
+void refreshTab() {
+    webkit_web_view_reload(getCurrentTab(GTK_NOTEBOOK(tabBar)).viewport);
+}
+
 void refreshCurrentTabUrlBarSignalHandler(WebKitWebView *webview, WebKitLoadEvent loadEvent) {
     refreshCurrentTabUrlBar(loadEvent, GTK_NOTEBOOK(tabBar), urlBarEntry);
 }
