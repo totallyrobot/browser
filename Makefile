@@ -23,3 +23,4 @@ clean:
 	rm tabs.o
 	rm urlbar.o
 	rm paths.o
+	rm signalhandlers.o
