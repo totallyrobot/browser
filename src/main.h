@@ -1,0 +1,1 @@
+void refreshCurrentTabUrlBarSignalHandler(WebKitWebView *webview, WebKitLoadEvent loadEvent);

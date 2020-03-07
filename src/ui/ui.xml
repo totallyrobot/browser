@@ -192,6 +192,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <object class="GtkNotebook" id="tabBar">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
+        <signal name="switch-page" handler="refreshUrlBar" swapped="no"/>
         <child>
           <object class="GtkEntry">
             <property name="visible">True</property>

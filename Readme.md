@@ -13,3 +13,11 @@ On Arch based distros (e.g. Arch, Manjaro, Arco):
 
 And on Gentoo:
 > \# emerge -a net-libs/webkit-gtk x11-libs/gtk+
+
+## Actually building the program
+
+Just run: 
+> $ make
+
+And to execute the built program run:
+> $ ./browser

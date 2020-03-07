@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 #include <webkit2/webkit2.h>
+#include <glib.h>
 #include "paths.h"
+#include "main.h"
 
 // now comes the actual tab stuff
 typedef struct {
@@ -33,7 +35,24 @@ TRBrowserTab TRBrowser_TRBrowserTab_new() {
 		return_value.tabCookieManager,
 		WEBKIT_COOKIE_POLICY_ACCEPT_NO_THIRD_PARTY
 	);
+
 	return_value.viewport = WEBKIT_WEB_VIEW(webkit_web_view_new_with_context(return_value.tabContext));
+	g_signal_connect(return_value.viewport, "load-changed", (GCallback) refreshCurrentTabUrlBarSignalHandler, NULL);
 	return_value.tabLabel = GTK_WIDGET(gtk_label_new("test"));
 	return return_value;
+}
+
+TRBrowserTab getCurrentTab(GtkNotebook *tabBar) {
+	TRBrowserTab currentTab;
+	gint currentTabIndex = gtk_notebook_get_current_page(tabBar);
+	currentTab.viewport = WEBKIT_WEB_VIEW(gtk_notebook_get_nth_page(tabBar, currentTabIndex));
+	currentTab.tabLabel = gtk_notebook_get_tab_label(tabBar, GTK_WIDGET(currentTab.viewport));
+	return currentTab;
+}
+
+TRBrowserTab getNthTab(gint tabIndex, GtkNotebook *tabBar) {
+	TRBrowserTab nthTab;
+	nthTab.viewport = WEBKIT_WEB_VIEW(gtk_notebook_get_nth_page(tabBar, tabIndex));
+	nthTab.tabLabel = gtk_notebook_get_tab_label(tabBar, GTK_WIDGET(nthTab.viewport));
+	return nthTab;
 }

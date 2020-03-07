@@ -10,3 +10,5 @@ typedef struct {
 } TRBrowserTab;
 
 TRBrowserTab TRBrowser_TRBrowserTab_new();
+TRBrowserTab getCurrentTab(GtkNotebook *tabBar);
+TRBrowserTab getNthTab(gint tabIndex, GtkNotebook *tabBar);
