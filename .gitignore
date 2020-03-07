@@ -7,3 +7,4 @@ tabs.o
 src/init.c
 src/html/
 paths.o
+signalhandlers.o
