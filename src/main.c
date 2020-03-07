@@ -39,6 +39,11 @@ void refreshTabLabelEventSignalHandlerFavicon(WebKitWebView *webView, WebKitLoad
     refreshTabLabelHandler(loadEvent, GTK_NOTEBOOK(tabBar), webView, TRUE);
 }
 
+
+/*void refreshTabSpinnerStateSignalHandler(WebKitWebView *webView, WebKitLoadEvent loadEvent) {
+    tabSpinnerHandler(loadEvent, webView, GTK_NOTEBOOK(tabBar));
+}*/
+
 void refreshTabLabelEventSignalHandler(WebKitWebView *webView, WebKitLoadEvent loadEvent) {
     refreshTabLabelHandler(loadEvent, GTK_NOTEBOOK(tabBar), webView, FALSE);
 }

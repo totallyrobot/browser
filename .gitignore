@@ -8,3 +8,5 @@ src/init.c
 src/html/
 paths.o
 signalhandlers.o
+strace.txt
+about_pages.o

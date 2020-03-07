@@ -6,7 +6,20 @@
         {
             "label": "Make",
             "type": "shell",
-            "command": "make clean; make"
-        }
+            "command": "make clean && make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "run browser",
+            "type": "shell",
+            "command": "./browser",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
     ]
 }

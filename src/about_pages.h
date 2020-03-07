@@ -1,0 +1,1 @@
+void aboutPagesURISchemeHandler(WebKitURISchemeRequest *request, gpointer user_data);

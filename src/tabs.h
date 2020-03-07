@@ -18,7 +18,11 @@ typedef struct {
 	WebKitCookieManager *tabCookieManager;
 } TRBrowserTab;
 
+TRBrowserTabLabel TRBrowser_TRBrowserTabLabel_new();
 TRBrowserTab TRBrowser_TRBrowserTab_new();
 TRBrowserTab getCurrentTab(GtkNotebook *tabBar);
 TRBrowserTab getNthTab(gint tabIndex, GtkNotebook *tabBar);
+void stopTabSpinner(guint tabIndex, GtkNotebook *tabBar);
+void startTabSpinner(guint tabIndex, GtkNotebook *tabBar);
 void refreshTabLabel(guint tabIndex, GtkNotebook *tabBar, gboolean forFavicon);
+void closeCurrentTab(GtkNotebook *tabBar);

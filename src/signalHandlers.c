@@ -22,5 +22,19 @@ void refreshTabLabelHandler(WebKitLoadEvent loadEvent, GtkNotebook *tabBar, WebK
 		case WEBKIT_LOAD_COMMITTED:
 			refreshTabLabel(gtk_notebook_page_num(tabBar, GTK_WIDGET(viewport)), tabBar, forFavicon);
 		break;
+		case WEBKIT_LOAD_FINISHED:
+			refreshTabLabel(gtk_notebook_page_num(tabBar, GTK_WIDGET(viewport)), tabBar, forFavicon);
+		break;
     }	
 }
+
+/*void tabSpinnerHandler(WebKitLoadEvent loadEvent, WebKitWebView *viewport, GtkNotebook *tabBar) {
+	switch (loadEvent) {
+		case WEBKIT_LOAD_STARTED:
+        	startTabSpinner(gtk_notebook_page_num(tabBar, GTK_WIDGET(viewport)), tabBar);
+    	break;
+		case WEBKIT_LOAD_FINISHED:
+			stopTabSpinner(gtk_notebook_page_num(tabBar, GTK_WIDGET(viewport)), tabBar);
+		break;
+	}
+}*/
