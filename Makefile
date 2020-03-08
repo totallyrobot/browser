@@ -1,5 +1,5 @@
 TARGET=browser
-CCFLAGS=-pthread -pipe -W -Wall
+CCFLAGS=-pthread -pipe -W -Wall -g3 -O2
 LIBS=`pkg-config --cflags --libs gtk+-3.0 webkit2gtk-4.0`
 LD=gcc
 LDFLAGS=-pthread $(LIBS) -export-dynamic

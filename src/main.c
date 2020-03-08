@@ -17,9 +17,11 @@ GtkWidget *tabBar;
 
 void createNewTab() {
     TRBrowserTab tab = TRBrowser_TRBrowserTab_new();
+    // NOTE: tab.viewport already has parent(?)
     gtk_notebook_append_page(GTK_NOTEBOOK(tabBar), GTK_WIDGET(tab.viewport), tab.tabLabel.trBrowserTabLabelContainer);
+    printf("test+");
     gtk_widget_show_all(mainWindow);
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(tabBar), -1);
+    // gtk_notebook_set_current_page(GTK_NOTEBOOK(tabBar), -1);
 }
 
 void goForward() {
