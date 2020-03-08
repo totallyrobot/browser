@@ -13,6 +13,7 @@ typedef struct {
 	GtkWidget *isAudioPlayingSymbol;
 	GtkWidget *favicon;
 	GtkWidget *trBrowserTabLabelContainer;
+	GtkWidget *spinner;
 } TRBrowserTabLabel;
 
 typedef struct {
@@ -33,13 +34,16 @@ TRBrowserTabLabel TRBrowser_TRBrowserTabLabel_new() {
 	return_value.closeTabButtonImage = gtk_image_new();
 	return_value.isAudioPlayingSymbol = gtk_image_new();
 	return_value.favicon = gtk_image_new();
+	return_value.spinner = gtk_spinner_new();
+	gtk_spinner_start(GTK_SPINNER(return_value.spinner));
 	gtk_image_set_from_icon_name(GTK_IMAGE(return_value.closeTabButtonImage), "window-close", 10);
 	gtk_image_set_from_icon_name(GTK_IMAGE(return_value.isAudioPlayingSymbol), "audio-volume-high", 10);
 	gtk_container_add(GTK_CONTAINER(return_value.closeTabButton), return_value.closeTabButtonImage);
 	gtk_box_pack_start(GTK_BOX(return_value.trBrowserTabLabelContainer), return_value.favicon, FALSE, FALSE, 0);
 	// gtk_box_pack_start(GTK_BOX(return_value.trBrowserTabLabelContainer), return_value.isAudioPlayingSymbol, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(return_value.trBrowserTabLabelContainer), return_value.tabLabel, TRUE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(return_value.trBrowserTabLabelContainer), return_value.closeTabButton, FALSE, FALSE, 0);
+	// gtk_box_pack_start(GTK_BOX(return_value.trBrowserTabLabelContainer), return_value.closeTabButton, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(return_value.trBrowserTabLabelContainer), return_value.spinner, FALSE, FALSE, 0);
 	gtk_widget_show_all(return_value.trBrowserTabLabelContainer);
 	return return_value;
 }
@@ -89,14 +93,15 @@ TRBrowserTab getNthTab(gint tabIndex, GtkNotebook *tabBar) {
 	return nthTab;
 }
 
-void refreshTabLabel(guint tabIndex, GtkNotebook *tabBar, gboolean forFavicon) {
+void refreshTabLabel(guint tabIndex, GtkNotebook *tabBar, gboolean forFavicon, WebKitLoadEvent loadEvent) {
 	TRBrowserTab tab = getNthTab(tabIndex, tabBar);
 	GList *tabLabelChildrenList = gtk_container_get_children(GTK_CONTAINER(tab.tabLabel.trBrowserTabLabelContainer));
 	tab.tabLabel.favicon = g_list_first(tabLabelChildrenList)->data;
 	tab.tabLabel.isAudioPlayingSymbol = g_list_first(tabLabelChildrenList)->next->data;
 	tab.tabLabel.tabLabel = g_list_first(tabLabelChildrenList)->next->data;
-	tab.tabLabel.closeTabButton = g_list_first(tabLabelChildrenList)->next->next->data;
-	cairo_surface_t *favicon = webkit_web_view_get_favicon(tab.viewport);
+	// tab.tabLabel.closeTabButton = g_list_first(tabLabelChildrenList)->next->next->data;
+	tab.tabLabel.spinner = g_list_first(tabLabelChildrenList)->next->next->data;
+	gtk_spinner_stop(GTK_SPINNER(tab.tabLabel.spinner));
 	// FIXME: get favicons to show up
 	if (forFavicon == TRUE)
 		gtk_image_set_from_surface(GTK_IMAGE(tab.tabLabel.favicon), webkit_web_view_get_favicon(tab.viewport));
