@@ -2,3 +2,4 @@ void refreshCurrentTabUrlBarSignalHandler(WebKitWebView *webview, WebKitLoadEven
 void refreshTabLabelEventSignalHandler(WebKitWebView *webView, WebKitLoadEvent loadEvent);
 void refreshTabLabelEventSignalHandlerNotify(WebKitWebView *webView);
 void refreshTabLabelEventSignalHandlerFavicon(WebKitWebView *webView, WebKitLoadEvent loadEvent);
+void refreshTabSpinnerLabelUpdate(WebKitWebView *webView, WebKitLoadEvent loadEvent);

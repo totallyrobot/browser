@@ -24,8 +24,6 @@ typedef struct {
 	WebKitCookieManager *tabCookieManager;
 } TRBrowserTab;
 
-
-
 TRBrowserTabLabel TRBrowser_TRBrowserTabLabel_new() {
 	TRBrowserTabLabel return_value;
 	return_value.trBrowserTabLabelContainer = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
@@ -35,7 +33,6 @@ TRBrowserTabLabel TRBrowser_TRBrowserTabLabel_new() {
 	return_value.isAudioPlayingSymbol = gtk_image_new();
 	return_value.favicon = gtk_image_new();
 	return_value.spinner = gtk_spinner_new();
-	gtk_spinner_start(GTK_SPINNER(return_value.spinner));
 	gtk_image_set_from_icon_name(GTK_IMAGE(return_value.closeTabButtonImage), "window-close", 10);
 	gtk_image_set_from_icon_name(GTK_IMAGE(return_value.isAudioPlayingSymbol), "audio-volume-high", 10);
 	gtk_container_add(GTK_CONTAINER(return_value.closeTabButton), return_value.closeTabButtonImage);
@@ -71,7 +68,14 @@ TRBrowserTab TRBrowser_TRBrowserTab_new() {
 	);
 
 	return_value.viewport = WEBKIT_WEB_VIEW(webkit_web_view_new_with_context(return_value.tabContext));
+	WebKitSettings *settings = webkit_web_view_get_settings(return_value.viewport);
+	webkit_settings_set_enable_media(settings, TRUE);
+	webkit_settings_set_hardware_acceleration_policy(settings, WEBKIT_HARDWARE_ACCELERATION_POLICY_ALWAYS);
+	webkit_settings_set_enable_media_capabilities(settings, TRUE);
+	webkit_settings_set_enable_mediasource(settings, TRUE);
+	webkit_settings_set_enable_encrypted_media(settings, TRUE);
 	g_signal_connect(return_value.viewport, "load-changed", (GCallback) refreshCurrentTabUrlBarSignalHandler, NULL);
+	g_signal_connect(return_value.viewport, "load-changed", (GCallback) refreshTabSpinnerLabelUpdate, NULL);
 	g_signal_connect(return_value.viewport, "notify::title", (GCallback) refreshTabLabelEventSignalHandlerNotify, return_value.viewport);
 	g_signal_connect(return_value.viewport, "notify::favicon", (GCallback) refreshTabLabelEventSignalHandlerFavicon, return_value.viewport);
 	return_value.tabLabel = TRBrowser_TRBrowserTabLabel_new();
@@ -101,7 +105,6 @@ void refreshTabLabel(guint tabIndex, GtkNotebook *tabBar, gboolean forFavicon, W
 	tab.tabLabel.tabLabel = g_list_first(tabLabelChildrenList)->next->data;
 	// tab.tabLabel.closeTabButton = g_list_first(tabLabelChildrenList)->next->next->data;
 	tab.tabLabel.spinner = g_list_first(tabLabelChildrenList)->next->next->data;
-	gtk_spinner_stop(GTK_SPINNER(tab.tabLabel.spinner));
 	// FIXME: get favicons to show up
 	if (forFavicon == TRUE)
 		gtk_image_set_from_surface(GTK_IMAGE(tab.tabLabel.favicon), webkit_web_view_get_favicon(tab.viewport));
@@ -109,6 +112,23 @@ void refreshTabLabel(guint tabIndex, GtkNotebook *tabBar, gboolean forFavicon, W
 	gtk_widget_show_all(tab.tabLabel.trBrowserTabLabelContainer);
 }
 
+void tabSpinnerUpdate(guint tabIndex, GtkNotebook *tabBar, WebKitLoadEvent loadEvent) {
+	TRBrowserTab tab = getNthTab(tabIndex, tabBar);
+	GList *tabLabelChildrenList = gtk_container_get_children(GTK_CONTAINER(tab.tabLabel.trBrowserTabLabelContainer));
+	tab.tabLabel.favicon = g_list_first(tabLabelChildrenList)->data;
+	tab.tabLabel.isAudioPlayingSymbol = g_list_first(tabLabelChildrenList)->next->data;
+	tab.tabLabel.tabLabel = g_list_first(tabLabelChildrenList)->next->data;
+	// tab.tabLabel.closeTabButton = g_list_first(tabLabelChildrenList)->next->next->data;
+	tab.tabLabel.spinner = g_list_first(tabLabelChildrenList)->next->next->data;
+	switch (loadEvent) {
+	case WEBKIT_LOAD_STARTED:
+		gtk_spinner_start(GTK_SPINNER(tab.tabLabel.spinner));
+	break;
+	case WEBKIT_LOAD_FINISHED:
+		gtk_spinner_stop(GTK_SPINNER(tab.tabLabel.spinner));
+	break;
+	}
+}
 
 void closeCurrentTab(GtkNotebook *tabBar) {
 	GtkWidget *child = gtk_notebook_get_nth_page(tabBar, gtk_notebook_get_current_page(tabBar));

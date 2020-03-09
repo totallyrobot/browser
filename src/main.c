@@ -20,6 +20,7 @@ void createNewTab() {
     gtk_notebook_append_page(GTK_NOTEBOOK(tabBar), GTK_WIDGET(tab.viewport), tab.tabLabel.trBrowserTabLabelContainer);
     gtk_widget_show_all(mainWindow);
     gtk_notebook_set_current_page(GTK_NOTEBOOK(tabBar), -1);
+    webkit_web_view_load_uri(tab.viewport, "https://start.duckduckgo.com");
 }
 
 void goForward() {
@@ -44,6 +45,9 @@ void refreshTabLabelEventSignalHandler(WebKitWebView *webView, WebKitLoadEvent l
 }
 void refreshTabLabelEventSignalHandlerNotify(WebKitWebView *webView) {
     refreshTabLabelHandler(WEBKIT_LOAD_COMMITTED, GTK_NOTEBOOK(tabBar), webView, FALSE);
+}
+void refreshTabSpinnerLabelUpdate(WebKitWebView *webView, WebKitLoadEvent loadEvent) {
+    updateSpinnerHandler(loadEvent, GTK_NOTEBOOK(tabBar), webView);
 }
 
 void refreshUrlBar(GtkNotebook *notebook, GtkWidget *page, guint tabIndex) {
