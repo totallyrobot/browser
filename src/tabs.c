@@ -108,3 +108,10 @@ void refreshTabLabel(guint tabIndex, GtkNotebook *tabBar, gboolean forFavicon, W
 	gtk_label_set_text(GTK_LABEL(tab.tabLabel.tabLabel), webkit_web_view_get_title(tab.viewport));
 	gtk_widget_show_all(tab.tabLabel.trBrowserTabLabelContainer);
 }
+
+
+void closeCurrentTab(GtkNotebook *tabBar) {
+	GtkWidget *child = gtk_notebook_get_nth_page(tabBar, gtk_notebook_get_current_page(tabBar));
+	webkit_web_view_try_close(WEBKIT_WEB_VIEW(child));
+	gtk_notebook_detach_tab(tabBar, child);
+}

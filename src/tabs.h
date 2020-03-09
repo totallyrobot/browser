@@ -21,4 +21,5 @@ typedef struct {
 TRBrowserTab TRBrowser_TRBrowserTab_new();
 TRBrowserTab getCurrentTab(GtkNotebook *tabBar);
 TRBrowserTab getNthTab(gint tabIndex, GtkNotebook *tabBar);
-void refreshTabLabel(guint tabIndex, GtkNotebook *tabBar, gboolean forFavicon);
+void refreshTabLabel(guint tabIndex, GtkNotebook *tabBar, gboolean forFavicon, WebKitLoadEvent loadEvent);
+void closeCurrentTab(GtkNotebook *tabBar);

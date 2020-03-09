@@ -20,7 +20,7 @@ void refreshCurrentTabUrlBar(WebKitLoadEvent loadEvent, GtkNotebook *tabBar, Gtk
 void refreshTabLabelHandler(WebKitLoadEvent loadEvent, GtkNotebook *tabBar, WebKitWebView *viewport, gboolean forFavicon) {
 	switch (loadEvent) {
 		case WEBKIT_LOAD_COMMITTED:
-			refreshTabLabel(gtk_notebook_page_num(tabBar, GTK_WIDGET(viewport)), tabBar, forFavicon);
+			refreshTabLabel(gtk_notebook_page_num(tabBar, GTK_WIDGET(viewport)), tabBar, forFavicon, loadEvent);
 		break;
     }	
 }

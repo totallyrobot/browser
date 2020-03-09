@@ -74,6 +74,10 @@ void exitApp() {
     exit(0);
 }
 
+void closeCurrentTabSignal() {
+    closeCurrentTab(GTK_NOTEBOOK(tabBar));
+}
+
 int main(int argc, char *argv[]) {
 	gtk_init(&argc, &argv);
 	builder = gtk_builder_new();
