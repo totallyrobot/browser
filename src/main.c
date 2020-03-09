@@ -96,6 +96,7 @@ int main(int argc, char *argv[]) {
     g_object_unref(builder);
     createNewTab();
     gtk_notebook_remove_page(GTK_NOTEBOOK(tabBar), 0);
+    gtk_notebook_set_scrollable(GTK_NOTEBOOK(tabBar), TRUE);
     gtk_widget_show_all(mainWindow);
     gtk_main();
 	return 0;
